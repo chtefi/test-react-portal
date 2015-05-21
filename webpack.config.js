@@ -3,8 +3,8 @@ var path = require('path');
 
 module.exports = {
 	entry: [
-	 	'webpack-dev-server/client?http://localhost:3000', // WebpackDevServer host and port
-  		'webpack/hot/only-dev-server',
+		'webpack-dev-server/client?http://localhost:3000', // WebpackDevServer host and port
+		'webpack/hot/only-dev-server',
 		'./src/app.js'
 	],
 	output: {
@@ -24,8 +24,8 @@ module.exports = {
 		]
 	},
 	plugins: [
-	  new webpack.HotModuleReplacementPlugin(),
-	  new webpack.NoErrorsPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoErrorsPlugin()
 	],
 	devtool: 'sourcemap'
 };
