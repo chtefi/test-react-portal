@@ -1,5 +1,6 @@
 import React from 'react';
 import { Overlay } from 'react-overlay';
+import './AppComponent.less';
 
 const portalStyle = {
 	backgroundColor: 'orange',
@@ -12,7 +13,7 @@ const portalStyle = {
 
 export default class App extends React.Component {
 	render() {
-		return <div>
+		return <div className="AppComponent">
 				<h1>Before portal</h1>
 				<Overlay>
 					<span style={portalStyle}>I'm in the portal !</span>

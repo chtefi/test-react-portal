@@ -1,0 +1,13 @@
+.AppComponent {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.AppComponent h1:hover {
+  background-color: orange;
+}
+
+/*# sourceMappingURL=main.css.map*/

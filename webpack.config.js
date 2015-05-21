@@ -1,3 +1,4 @@
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require('webpack');
 var path = require('path');
 
@@ -20,12 +21,21 @@ module.exports = {
 				exclude: /node_modules/,
 				loaders: [ 'react-hot', 'babel-loader' ],
 				include: path.join(__dirname, 'src')
+			},
+			{ // we can do: import './Component.css';
+				test: /\.css$/,
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!!autoprefixer-loader?browsers=last 50 version')
+			},
+			{ // we can do: import './Component.less';
+				test: /\.less$/,
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!!autoprefixer-loader?browsers=last 50 version!less-loader?sourceMap!')
 			}
 		]
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin()
+		new webpack.NoErrorsPlugin(),
+		new ExtractTextPlugin("[name].css")
 	],
 	devtool: 'sourcemap'
 };
