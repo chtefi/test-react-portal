@@ -1,7 +1,10 @@
 import React from 'react';
-import { Overlay } from 'react-overlay';
-import styles from './AppComponent.less';
+import Menu from './Menu';
 
+/**
+ * Stateful component.
+ * Only use to render a <Menu> component which is stateless.
+ */
 export default class App extends React.Component {
 
 	static propTypes = {
@@ -20,7 +23,6 @@ export default class App extends React.Component {
 	componentDidMount() {
 		this.bindEvents();
 	}
-
 	componentWillUnmount() {
 		this.unbindEvents();
 	}
@@ -40,17 +42,7 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		return (
-			<div className={styles.container}>
-				<h1>{ this.props.appName } [counter:{ this.state.value }]</h1>
-				<h2>Before portal</h2>
-				<Overlay>
-					<span className={styles.portal}>I'm in the portal !</span>
-				</Overlay>
-				<h2>After portal</h2>
-			</div>
-		);
+		return <Menu {...this.props} value={this.state.value} />;
 	}
-
 
 }
