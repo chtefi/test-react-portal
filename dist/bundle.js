@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "71d2ee02d0b377dc00ac"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a8bc0444205770bd4d77"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -557,9 +557,9 @@
 	
 	'use strict';
 	
-	var CSSPropertyOperations = __webpack_require__(149);
+	var CSSPropertyOperations = __webpack_require__(148);
 	var DOMChildrenOperations = __webpack_require__(160);
-	var DOMPropertyOperations = __webpack_require__(100);
+	var DOMPropertyOperations = __webpack_require__(102);
 	var ReactMount = __webpack_require__(9);
 	var ReactPerf = __webpack_require__(27);
 	
@@ -802,10 +802,9 @@
 	
 	var _AppComponent2 = _interopRequireDefault(_AppComponent);
 	
-	_react2['default'].render(_react2['default'].createElement(_AppComponent2['default'], {
-		appName: 'My Application Name',
-		maxCounter: 1337
-	}), document.getElementById('app'));
+	var app = _react2['default'].createElement(_AppComponent2['default'], { appName: 'My Application Name', maxCounter: 1337 });
+	
+	_react2['default'].render(app, document.getElementById('app'));
 	
 	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(6), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(13))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "app.js" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
@@ -987,6 +986,11 @@
 	var _Menu = __webpack_require__(17);
 	
 	var _Menu2 = _interopRequireDefault(_Menu);
+	
+	/**
+	 * Stateful component.
+	 * Only use to render a <Menu> component which is stateless.
+	 */
 	
 	var App = (function (_React$Component) {
 		function App() {
@@ -1950,20 +1954,20 @@
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	module.exports = __webpack_require__(40);
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	var ansiRegex = __webpack_require__(43)();
 	
 	module.exports = function (str) {
 		return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
 	};
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	module.exports = __webpack_require__(40);
 
 
 /***/ },
@@ -2091,6 +2095,11 @@
 	var _AppComponentLess = __webpack_require__(84);
 	
 	var _AppComponentLess2 = _interopRequireDefault(_AppComponentLess);
+	
+	/**
+	 * Stateless component.
+	 * Just render some UI.
+	 */
 	
 	var App = (function (_React$Component) {
 		function App() {
@@ -4137,7 +4146,7 @@
 	
 	'use strict';
 	
-	var adler32 = __webpack_require__(58);
+	var adler32 = __webpack_require__(59);
 	
 	var ReactMarkupChecksum = {
 	  CHECKSUM_ATTR_NAME: 'data-react-checksum',
@@ -4296,7 +4305,7 @@
 	
 	'use strict';
 	
-	var ReactRef = __webpack_require__(59);
+	var ReactRef = __webpack_require__(58);
 	var ReactElementValidator = __webpack_require__(22);
 	
 	/**
@@ -5327,7 +5336,7 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var WHITESPACE_TEST = /^[ \r\n\t\f]/;
 	var NONVISIBLE_TEST = /<(!--|link|noscript|meta|script|style)[ \r\n\t\f\/>]/;
@@ -5525,7 +5534,7 @@
 	
 	"use strict";
 	
-	var emptyFunction = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
 	
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -5812,7 +5821,7 @@
 	}
 	
 	if ("production" !== process.env.NODE_ENV) {
-	  var ExecutionEnvironment = __webpack_require__(66);
+	  var ExecutionEnvironment = __webpack_require__(67);
 	  if (ExecutionEnvironment.canUseDOM && window.top === window.self) {
 	
 	    // If we're in Chrome, look for the devtools marker and provide a download
@@ -6765,7 +6774,7 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var useHasFeature;
 	if (ExecutionEnvironment.canUseDOM) {
@@ -7350,44 +7359,6 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule adler32
-	 */
-	
-	/* jslint bitwise:true */
-	
-	'use strict';
-	
-	var MOD = 65521;
-	
-	// This is a clean-room implementation of adler32 designed for detecting
-	// if markup is not what we expect it to be. It does not need to be
-	// cryptographically strong, only reasonably good at detecting if markup
-	// generated on the server is different than that on the client.
-	function adler32(data) {
-	  var a = 1;
-	  var b = 0;
-	  for (var i = 0; i < data.length; i++) {
-	    a = (a + data.charCodeAt(i)) % MOD;
-	    b = (b + a) % MOD;
-	  }
-	  return a | (b << 16);
-	}
-	
-	module.exports = adler32;
-
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule ReactRef
 	 */
 	
@@ -7449,6 +7420,44 @@
 	};
 	
 	module.exports = ReactRef;
+
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule adler32
+	 */
+	
+	/* jslint bitwise:true */
+	
+	'use strict';
+	
+	var MOD = 65521;
+	
+	// This is a clean-room implementation of adler32 designed for detecting
+	// if markup is not what we expect it to be. It does not need to be
+	// cryptographically strong, only reasonably good at detecting if markup
+	// generated on the server is different than that on the client.
+	function adler32(data) {
+	  var a = 1;
+	  var b = 0;
+	  for (var i = 0; i < data.length; i++) {
+	    a = (a + data.charCodeAt(i)) % MOD;
+	    b = (b + a) % MOD;
+	  }
+	  return a | (b << 16);
+	}
+	
+	module.exports = adler32;
 
 
 /***/ },
@@ -8915,6 +8924,44 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
+	 * @providesModule emptyFunction
+	 */
+	
+	function makeEmptyFunction(arg) {
+	  return function() {
+	    return arg;
+	  };
+	}
+	
+	/**
+	 * This function accepts and discards inputs; it has no side effects. This is
+	 * primarily useful idiomatically for overridable function endpoints which
+	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+	 */
+	function emptyFunction() {}
+	
+	emptyFunction.thatReturns = makeEmptyFunction;
+	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+	emptyFunction.thatReturnsThis = function() { return this; };
+	emptyFunction.thatReturnsArgument = function(arg) { return arg; };
+	
+	module.exports = emptyFunction;
+
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
 	 * @providesModule ExecutionEnvironment
 	 */
 	
@@ -8949,44 +8996,6 @@
 	};
 	
 	module.exports = ExecutionEnvironment;
-
-
-/***/ },
-/* 67 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule emptyFunction
-	 */
-	
-	function makeEmptyFunction(arg) {
-	  return function() {
-	    return arg;
-	  };
-	}
-	
-	/**
-	 * This function accepts and discards inputs; it has no side effects. This is
-	 * primarily useful idiomatically for overridable function endpoints which
-	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
-	 */
-	function emptyFunction() {}
-	
-	emptyFunction.thatReturns = makeEmptyFunction;
-	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-	emptyFunction.thatReturnsThis = function() { return this; };
-	emptyFunction.thatReturnsArgument = function(arg) { return arg; };
-	
-	module.exports = emptyFunction;
 
 
 /***/ },
@@ -9051,7 +9060,7 @@
 	 * Module dependencies.
 	 */
 	
-	var parseuri = __webpack_require__(142);
+	var parseuri = __webpack_require__(136);
 	var debug = __webpack_require__(96)('socket.io-client:url');
 	
 	/**
@@ -9132,16 +9141,16 @@
 	 */
 	
 	var url = __webpack_require__(69);
-	var eio = __webpack_require__(136);
+	var eio = __webpack_require__(137);
 	var Socket = __webpack_require__(71);
-	var Emitter = __webpack_require__(137);
+	var Emitter = __webpack_require__(138);
 	var parser = __webpack_require__(87);
 	var on = __webpack_require__(97);
-	var bind = __webpack_require__(138);
+	var bind = __webpack_require__(139);
 	var object = __webpack_require__(140);
 	var debug = __webpack_require__(96)('socket.io-client:manager');
-	var indexOf = __webpack_require__(139);
-	var Backoff = __webpack_require__(141);
+	var indexOf = __webpack_require__(141);
+	var Backoff = __webpack_require__(142);
 	
 	/**
 	 * Module exports
@@ -9641,10 +9650,10 @@
 	 */
 	
 	var parser = __webpack_require__(87);
-	var Emitter = __webpack_require__(137);
+	var Emitter = __webpack_require__(138);
 	var toArray = __webpack_require__(143);
 	var on = __webpack_require__(97);
-	var bind = __webpack_require__(138);
+	var bind = __webpack_require__(139);
 	var debug = __webpack_require__(96)('socket.io-client:socket');
 	var hasBin = __webpack_require__(144);
 	
@@ -10266,7 +10275,7 @@
 	var PooledClass = __webpack_require__(62);
 	var ReactFragment = __webpack_require__(52);
 	
-	var traverseAllChildren = __webpack_require__(105);
+	var traverseAllChildren = __webpack_require__(98);
 	var warning = __webpack_require__(38);
 	
 	var twoArgumentPooler = PooledClass.twoArgumentPooler;
@@ -10579,7 +10588,7 @@
 	var ReactComponent = __webpack_require__(74);
 	var ReactCurrentOwner = __webpack_require__(20);
 	var ReactElement = __webpack_require__(21);
-	var ReactErrorUtils = __webpack_require__(98);
+	var ReactErrorUtils = __webpack_require__(99);
 	var ReactInstanceMap = __webpack_require__(25);
 	var ReactLifeCycle = __webpack_require__(60);
 	var ReactPropTypeLocations = __webpack_require__(53);
@@ -10589,7 +10598,7 @@
 	var assign = __webpack_require__(49);
 	var invariant = __webpack_require__(35);
 	var keyMirror = __webpack_require__(88);
-	var keyOf = __webpack_require__(99);
+	var keyOf = __webpack_require__(100);
 	var warning = __webpack_require__(38);
 	
 	var MIXINS_KEY = keyOf({mixins: null});
@@ -11529,7 +11538,7 @@
 	var ReactElement = __webpack_require__(21);
 	var ReactElementValidator = __webpack_require__(22);
 	
-	var mapObject = __webpack_require__(104);
+	var mapObject = __webpack_require__(101);
 	
 	/**
 	 * Create a factory that creates HTML tag elements.
@@ -11708,13 +11717,13 @@
 	
 	'use strict';
 	
-	var DOMPropertyOperations = __webpack_require__(100);
+	var DOMPropertyOperations = __webpack_require__(102);
 	var ReactComponentBrowserEnvironment =
-	  __webpack_require__(101);
-	var ReactDOMComponent = __webpack_require__(102);
+	  __webpack_require__(103);
+	var ReactDOMComponent = __webpack_require__(104);
 	
 	var assign = __webpack_require__(49);
-	var escapeTextContentForBrowser = __webpack_require__(103);
+	var escapeTextContentForBrowser = __webpack_require__(105);
 	
 	/**
 	 * Text nodes violate a couple assumptions that React makes about components:
@@ -11833,15 +11842,15 @@
 	var ClientReactRootIndex = __webpack_require__(108);
 	var DefaultEventPluginOrder = __webpack_require__(109);
 	var EnterLeaveEventPlugin = __webpack_require__(110);
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	var HTMLDOMPropertyConfig = __webpack_require__(111);
 	var MobileSafariClickEventPlugin = __webpack_require__(112);
 	var ReactBrowserComponentMixin = __webpack_require__(113);
 	var ReactClass = __webpack_require__(75);
 	var ReactComponentBrowserEnvironment =
-	  __webpack_require__(101);
+	  __webpack_require__(103);
 	var ReactDefaultBatchingStrategy = __webpack_require__(114);
-	var ReactDOMComponent = __webpack_require__(102);
+	var ReactDOMComponent = __webpack_require__(104);
 	var ReactDOMButton = __webpack_require__(115);
 	var ReactDOMForm = __webpack_require__(116);
 	var ReactDOMImg = __webpack_require__(117);
@@ -11994,7 +12003,7 @@
 	var ReactFragment = __webpack_require__(52);
 	var ReactPropTypeLocationNames = __webpack_require__(54);
 	
-	var emptyFunction = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
 	
 	/**
 	 * Collection of methods that allow declaration and validation of props that are
@@ -12560,7 +12569,7 @@
 	var debug = __webpack_require__(96)('socket.io-parser');
 	var json = __webpack_require__(180);
 	var isArray = __webpack_require__(179);
-	var Emitter = __webpack_require__(137);
+	var Emitter = __webpack_require__(138);
 	var binary = __webpack_require__(145);
 	var isBuf = __webpack_require__(146);
 	
@@ -13612,6 +13621,262 @@
 /* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule traverseAllChildren
+	 */
+	
+	'use strict';
+	
+	var ReactElement = __webpack_require__(21);
+	var ReactFragment = __webpack_require__(52);
+	var ReactInstanceHandles = __webpack_require__(24);
+	
+	var getIteratorFn = __webpack_require__(56);
+	var invariant = __webpack_require__(35);
+	var warning = __webpack_require__(38);
+	
+	var SEPARATOR = ReactInstanceHandles.SEPARATOR;
+	var SUBSEPARATOR = ':';
+	
+	/**
+	 * TODO: Test that a single child and an array with one item have the same key
+	 * pattern.
+	 */
+	
+	var userProvidedKeyEscaperLookup = {
+	  '=': '=0',
+	  '.': '=1',
+	  ':': '=2'
+	};
+	
+	var userProvidedKeyEscapeRegex = /[=.:]/g;
+	
+	var didWarnAboutMaps = false;
+	
+	function userProvidedKeyEscaper(match) {
+	  return userProvidedKeyEscaperLookup[match];
+	}
+	
+	/**
+	 * Generate a key string that identifies a component within a set.
+	 *
+	 * @param {*} component A component that could contain a manual key.
+	 * @param {number} index Index that is used if a manual key is not provided.
+	 * @return {string}
+	 */
+	function getComponentKey(component, index) {
+	  if (component && component.key != null) {
+	    // Explicit key
+	    return wrapUserProvidedKey(component.key);
+	  }
+	  // Implicit key determined by the index in the set
+	  return index.toString(36);
+	}
+	
+	/**
+	 * Escape a component key so that it is safe to use in a reactid.
+	 *
+	 * @param {*} key Component key to be escaped.
+	 * @return {string} An escaped string.
+	 */
+	function escapeUserProvidedKey(text) {
+	  return ('' + text).replace(
+	    userProvidedKeyEscapeRegex,
+	    userProvidedKeyEscaper
+	  );
+	}
+	
+	/**
+	 * Wrap a `key` value explicitly provided by the user to distinguish it from
+	 * implicitly-generated keys generated by a component's index in its parent.
+	 *
+	 * @param {string} key Value of a user-provided `key` attribute
+	 * @return {string}
+	 */
+	function wrapUserProvidedKey(key) {
+	  return '$' + escapeUserProvidedKey(key);
+	}
+	
+	/**
+	 * @param {?*} children Children tree container.
+	 * @param {!string} nameSoFar Name of the key path so far.
+	 * @param {!number} indexSoFar Number of children encountered until this point.
+	 * @param {!function} callback Callback to invoke with each child found.
+	 * @param {?*} traverseContext Used to pass information throughout the traversal
+	 * process.
+	 * @return {!number} The number of children in this subtree.
+	 */
+	function traverseAllChildrenImpl(
+	  children,
+	  nameSoFar,
+	  indexSoFar,
+	  callback,
+	  traverseContext
+	) {
+	  var type = typeof children;
+	
+	  if (type === 'undefined' || type === 'boolean') {
+	    // All of the above are perceived as null.
+	    children = null;
+	  }
+	
+	  if (children === null ||
+	      type === 'string' ||
+	      type === 'number' ||
+	      ReactElement.isValidElement(children)) {
+	    callback(
+	      traverseContext,
+	      children,
+	      // If it's the only child, treat the name as if it was wrapped in an array
+	      // so that it's consistent if the number of children grows.
+	      nameSoFar === '' ? SEPARATOR + getComponentKey(children, 0) : nameSoFar,
+	      indexSoFar
+	    );
+	    return 1;
+	  }
+	
+	  var child, nextName, nextIndex;
+	  var subtreeCount = 0; // Count of children found in the current subtree.
+	
+	  if (Array.isArray(children)) {
+	    for (var i = 0; i < children.length; i++) {
+	      child = children[i];
+	      nextName = (
+	        (nameSoFar !== '' ? nameSoFar + SUBSEPARATOR : SEPARATOR) +
+	        getComponentKey(child, i)
+	      );
+	      nextIndex = indexSoFar + subtreeCount;
+	      subtreeCount += traverseAllChildrenImpl(
+	        child,
+	        nextName,
+	        nextIndex,
+	        callback,
+	        traverseContext
+	      );
+	    }
+	  } else {
+	    var iteratorFn = getIteratorFn(children);
+	    if (iteratorFn) {
+	      var iterator = iteratorFn.call(children);
+	      var step;
+	      if (iteratorFn !== children.entries) {
+	        var ii = 0;
+	        while (!(step = iterator.next()).done) {
+	          child = step.value;
+	          nextName = (
+	            (nameSoFar !== '' ? nameSoFar + SUBSEPARATOR : SEPARATOR) +
+	            getComponentKey(child, ii++)
+	          );
+	          nextIndex = indexSoFar + subtreeCount;
+	          subtreeCount += traverseAllChildrenImpl(
+	            child,
+	            nextName,
+	            nextIndex,
+	            callback,
+	            traverseContext
+	          );
+	        }
+	      } else {
+	        if ("production" !== process.env.NODE_ENV) {
+	          ("production" !== process.env.NODE_ENV ? warning(
+	            didWarnAboutMaps,
+	            'Using Maps as children is not yet fully supported. It is an ' +
+	            'experimental feature that might be removed. Convert it to a ' +
+	            'sequence / iterable of keyed ReactElements instead.'
+	          ) : null);
+	          didWarnAboutMaps = true;
+	        }
+	        // Iterator will provide entry [k,v] tuples rather than values.
+	        while (!(step = iterator.next()).done) {
+	          var entry = step.value;
+	          if (entry) {
+	            child = entry[1];
+	            nextName = (
+	              (nameSoFar !== '' ? nameSoFar + SUBSEPARATOR : SEPARATOR) +
+	              wrapUserProvidedKey(entry[0]) + SUBSEPARATOR +
+	              getComponentKey(child, 0)
+	            );
+	            nextIndex = indexSoFar + subtreeCount;
+	            subtreeCount += traverseAllChildrenImpl(
+	              child,
+	              nextName,
+	              nextIndex,
+	              callback,
+	              traverseContext
+	            );
+	          }
+	        }
+	      }
+	    } else if (type === 'object') {
+	      ("production" !== process.env.NODE_ENV ? invariant(
+	        children.nodeType !== 1,
+	        'traverseAllChildren(...): Encountered an invalid child; DOM ' +
+	        'elements are not valid children of React components.'
+	      ) : invariant(children.nodeType !== 1));
+	      var fragment = ReactFragment.extract(children);
+	      for (var key in fragment) {
+	        if (fragment.hasOwnProperty(key)) {
+	          child = fragment[key];
+	          nextName = (
+	            (nameSoFar !== '' ? nameSoFar + SUBSEPARATOR : SEPARATOR) +
+	            wrapUserProvidedKey(key) + SUBSEPARATOR +
+	            getComponentKey(child, 0)
+	          );
+	          nextIndex = indexSoFar + subtreeCount;
+	          subtreeCount += traverseAllChildrenImpl(
+	            child,
+	            nextName,
+	            nextIndex,
+	            callback,
+	            traverseContext
+	          );
+	        }
+	      }
+	    }
+	  }
+	
+	  return subtreeCount;
+	}
+	
+	/**
+	 * Traverses children that are typically specified as `props.children`, but
+	 * might also be specified through attributes:
+	 *
+	 * - `traverseAllChildren(this.props.children, ...)`
+	 * - `traverseAllChildren(this.props.leftPanelChildren, ...)`
+	 *
+	 * The `traverseContext` is an optional argument that is passed through the
+	 * entire traversal. It can be used to store accumulations or anything else that
+	 * the callback might find relevant.
+	 *
+	 * @param {?*} children Children tree object.
+	 * @param {!function} callback To invoke upon traversing each child.
+	 * @param {?*} traverseContext Context for traversal.
+	 * @return {!number} The number of children in this subtree.
+	 */
+	function traverseAllChildren(children, callback, traverseContext) {
+	  if (children == null) {
+	    return 0;
+	  }
+	
+	  return traverseAllChildrenImpl(children, '', 0, callback, traverseContext);
+	}
+	
+	module.exports = traverseAllChildren;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+
+/***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * Copyright 2013-2015, Facebook, Inc.
 	 * All rights reserved.
@@ -13645,7 +13910,7 @@
 
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13685,7 +13950,64 @@
 
 
 /***/ },
-/* 100 */
+/* 101 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule mapObject
+	 */
+	
+	'use strict';
+	
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	
+	/**
+	 * Executes the provided `callback` once for each enumerable own property in the
+	 * object and constructs a new object from the results. The `callback` is
+	 * invoked with three arguments:
+	 *
+	 *  - the property value
+	 *  - the property name
+	 *  - the object being traversed
+	 *
+	 * Properties that are added after the call to `mapObject` will not be visited
+	 * by `callback`. If the values of existing properties are changed, the value
+	 * passed to `callback` will be the value at the time `mapObject` visits them.
+	 * Properties that are deleted before being visited are not visited.
+	 *
+	 * @grep function objectMap()
+	 * @grep function objMap()
+	 *
+	 * @param {?object} object
+	 * @param {function} callback
+	 * @param {*} context
+	 * @return {?object}
+	 */
+	function mapObject(object, callback, context) {
+	  if (!object) {
+	    return null;
+	  }
+	  var result = {};
+	  for (var name in object) {
+	    if (hasOwnProperty.call(object, name)) {
+	      result[name] = callback.call(context, object[name], name, object);
+	    }
+	  }
+	  return result;
+	}
+	
+	module.exports = mapObject;
+
+
+/***/ },
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13704,7 +14026,7 @@
 	
 	var DOMProperty = __webpack_require__(18);
 	
-	var quoteAttributeValueForBrowser = __webpack_require__(148);
+	var quoteAttributeValueForBrowser = __webpack_require__(150);
 	var warning = __webpack_require__(38);
 	
 	function shouldIgnoreValue(name, value) {
@@ -13880,7 +14202,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13931,7 +14253,7 @@
 
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13950,21 +14272,21 @@
 	
 	'use strict';
 	
-	var CSSPropertyOperations = __webpack_require__(149);
+	var CSSPropertyOperations = __webpack_require__(148);
 	var DOMProperty = __webpack_require__(18);
-	var DOMPropertyOperations = __webpack_require__(100);
+	var DOMPropertyOperations = __webpack_require__(102);
 	var ReactBrowserEventEmitter = __webpack_require__(19);
 	var ReactComponentBrowserEnvironment =
-	  __webpack_require__(101);
+	  __webpack_require__(103);
 	var ReactMount = __webpack_require__(9);
-	var ReactMultiChild = __webpack_require__(150);
+	var ReactMultiChild = __webpack_require__(149);
 	var ReactPerf = __webpack_require__(27);
 	
 	var assign = __webpack_require__(49);
-	var escapeTextContentForBrowser = __webpack_require__(103);
+	var escapeTextContentForBrowser = __webpack_require__(105);
 	var invariant = __webpack_require__(35);
 	var isEventSupported = __webpack_require__(50);
-	var keyOf = __webpack_require__(99);
+	var keyOf = __webpack_require__(100);
 	var warning = __webpack_require__(38);
 	
 	var deleteListener = ReactBrowserEventEmitter.deleteListener;
@@ -14444,7 +14766,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -14488,319 +14810,6 @@
 
 
 /***/ },
-/* 104 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule mapObject
-	 */
-	
-	'use strict';
-	
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	
-	/**
-	 * Executes the provided `callback` once for each enumerable own property in the
-	 * object and constructs a new object from the results. The `callback` is
-	 * invoked with three arguments:
-	 *
-	 *  - the property value
-	 *  - the property name
-	 *  - the object being traversed
-	 *
-	 * Properties that are added after the call to `mapObject` will not be visited
-	 * by `callback`. If the values of existing properties are changed, the value
-	 * passed to `callback` will be the value at the time `mapObject` visits them.
-	 * Properties that are deleted before being visited are not visited.
-	 *
-	 * @grep function objectMap()
-	 * @grep function objMap()
-	 *
-	 * @param {?object} object
-	 * @param {function} callback
-	 * @param {*} context
-	 * @return {?object}
-	 */
-	function mapObject(object, callback, context) {
-	  if (!object) {
-	    return null;
-	  }
-	  var result = {};
-	  for (var name in object) {
-	    if (hasOwnProperty.call(object, name)) {
-	      result[name] = callback.call(context, object[name], name, object);
-	    }
-	  }
-	  return result;
-	}
-	
-	module.exports = mapObject;
-
-
-/***/ },
-/* 105 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule traverseAllChildren
-	 */
-	
-	'use strict';
-	
-	var ReactElement = __webpack_require__(21);
-	var ReactFragment = __webpack_require__(52);
-	var ReactInstanceHandles = __webpack_require__(24);
-	
-	var getIteratorFn = __webpack_require__(56);
-	var invariant = __webpack_require__(35);
-	var warning = __webpack_require__(38);
-	
-	var SEPARATOR = ReactInstanceHandles.SEPARATOR;
-	var SUBSEPARATOR = ':';
-	
-	/**
-	 * TODO: Test that a single child and an array with one item have the same key
-	 * pattern.
-	 */
-	
-	var userProvidedKeyEscaperLookup = {
-	  '=': '=0',
-	  '.': '=1',
-	  ':': '=2'
-	};
-	
-	var userProvidedKeyEscapeRegex = /[=.:]/g;
-	
-	var didWarnAboutMaps = false;
-	
-	function userProvidedKeyEscaper(match) {
-	  return userProvidedKeyEscaperLookup[match];
-	}
-	
-	/**
-	 * Generate a key string that identifies a component within a set.
-	 *
-	 * @param {*} component A component that could contain a manual key.
-	 * @param {number} index Index that is used if a manual key is not provided.
-	 * @return {string}
-	 */
-	function getComponentKey(component, index) {
-	  if (component && component.key != null) {
-	    // Explicit key
-	    return wrapUserProvidedKey(component.key);
-	  }
-	  // Implicit key determined by the index in the set
-	  return index.toString(36);
-	}
-	
-	/**
-	 * Escape a component key so that it is safe to use in a reactid.
-	 *
-	 * @param {*} key Component key to be escaped.
-	 * @return {string} An escaped string.
-	 */
-	function escapeUserProvidedKey(text) {
-	  return ('' + text).replace(
-	    userProvidedKeyEscapeRegex,
-	    userProvidedKeyEscaper
-	  );
-	}
-	
-	/**
-	 * Wrap a `key` value explicitly provided by the user to distinguish it from
-	 * implicitly-generated keys generated by a component's index in its parent.
-	 *
-	 * @param {string} key Value of a user-provided `key` attribute
-	 * @return {string}
-	 */
-	function wrapUserProvidedKey(key) {
-	  return '$' + escapeUserProvidedKey(key);
-	}
-	
-	/**
-	 * @param {?*} children Children tree container.
-	 * @param {!string} nameSoFar Name of the key path so far.
-	 * @param {!number} indexSoFar Number of children encountered until this point.
-	 * @param {!function} callback Callback to invoke with each child found.
-	 * @param {?*} traverseContext Used to pass information throughout the traversal
-	 * process.
-	 * @return {!number} The number of children in this subtree.
-	 */
-	function traverseAllChildrenImpl(
-	  children,
-	  nameSoFar,
-	  indexSoFar,
-	  callback,
-	  traverseContext
-	) {
-	  var type = typeof children;
-	
-	  if (type === 'undefined' || type === 'boolean') {
-	    // All of the above are perceived as null.
-	    children = null;
-	  }
-	
-	  if (children === null ||
-	      type === 'string' ||
-	      type === 'number' ||
-	      ReactElement.isValidElement(children)) {
-	    callback(
-	      traverseContext,
-	      children,
-	      // If it's the only child, treat the name as if it was wrapped in an array
-	      // so that it's consistent if the number of children grows.
-	      nameSoFar === '' ? SEPARATOR + getComponentKey(children, 0) : nameSoFar,
-	      indexSoFar
-	    );
-	    return 1;
-	  }
-	
-	  var child, nextName, nextIndex;
-	  var subtreeCount = 0; // Count of children found in the current subtree.
-	
-	  if (Array.isArray(children)) {
-	    for (var i = 0; i < children.length; i++) {
-	      child = children[i];
-	      nextName = (
-	        (nameSoFar !== '' ? nameSoFar + SUBSEPARATOR : SEPARATOR) +
-	        getComponentKey(child, i)
-	      );
-	      nextIndex = indexSoFar + subtreeCount;
-	      subtreeCount += traverseAllChildrenImpl(
-	        child,
-	        nextName,
-	        nextIndex,
-	        callback,
-	        traverseContext
-	      );
-	    }
-	  } else {
-	    var iteratorFn = getIteratorFn(children);
-	    if (iteratorFn) {
-	      var iterator = iteratorFn.call(children);
-	      var step;
-	      if (iteratorFn !== children.entries) {
-	        var ii = 0;
-	        while (!(step = iterator.next()).done) {
-	          child = step.value;
-	          nextName = (
-	            (nameSoFar !== '' ? nameSoFar + SUBSEPARATOR : SEPARATOR) +
-	            getComponentKey(child, ii++)
-	          );
-	          nextIndex = indexSoFar + subtreeCount;
-	          subtreeCount += traverseAllChildrenImpl(
-	            child,
-	            nextName,
-	            nextIndex,
-	            callback,
-	            traverseContext
-	          );
-	        }
-	      } else {
-	        if ("production" !== process.env.NODE_ENV) {
-	          ("production" !== process.env.NODE_ENV ? warning(
-	            didWarnAboutMaps,
-	            'Using Maps as children is not yet fully supported. It is an ' +
-	            'experimental feature that might be removed. Convert it to a ' +
-	            'sequence / iterable of keyed ReactElements instead.'
-	          ) : null);
-	          didWarnAboutMaps = true;
-	        }
-	        // Iterator will provide entry [k,v] tuples rather than values.
-	        while (!(step = iterator.next()).done) {
-	          var entry = step.value;
-	          if (entry) {
-	            child = entry[1];
-	            nextName = (
-	              (nameSoFar !== '' ? nameSoFar + SUBSEPARATOR : SEPARATOR) +
-	              wrapUserProvidedKey(entry[0]) + SUBSEPARATOR +
-	              getComponentKey(child, 0)
-	            );
-	            nextIndex = indexSoFar + subtreeCount;
-	            subtreeCount += traverseAllChildrenImpl(
-	              child,
-	              nextName,
-	              nextIndex,
-	              callback,
-	              traverseContext
-	            );
-	          }
-	        }
-	      }
-	    } else if (type === 'object') {
-	      ("production" !== process.env.NODE_ENV ? invariant(
-	        children.nodeType !== 1,
-	        'traverseAllChildren(...): Encountered an invalid child; DOM ' +
-	        'elements are not valid children of React components.'
-	      ) : invariant(children.nodeType !== 1));
-	      var fragment = ReactFragment.extract(children);
-	      for (var key in fragment) {
-	        if (fragment.hasOwnProperty(key)) {
-	          child = fragment[key];
-	          nextName = (
-	            (nameSoFar !== '' ? nameSoFar + SUBSEPARATOR : SEPARATOR) +
-	            wrapUserProvidedKey(key) + SUBSEPARATOR +
-	            getComponentKey(child, 0)
-	          );
-	          nextIndex = indexSoFar + subtreeCount;
-	          subtreeCount += traverseAllChildrenImpl(
-	            child,
-	            nextName,
-	            nextIndex,
-	            callback,
-	            traverseContext
-	          );
-	        }
-	      }
-	    }
-	  }
-	
-	  return subtreeCount;
-	}
-	
-	/**
-	 * Traverses children that are typically specified as `props.children`, but
-	 * might also be specified through attributes:
-	 *
-	 * - `traverseAllChildren(this.props.children, ...)`
-	 * - `traverseAllChildren(this.props.leftPanelChildren, ...)`
-	 *
-	 * The `traverseContext` is an optional argument that is passed through the
-	 * entire traversal. It can be used to store accumulations or anything else that
-	 * the callback might find relevant.
-	 *
-	 * @param {?*} children Children tree object.
-	 * @param {!function} callback To invoke upon traversing each child.
-	 * @param {?*} traverseContext Context for traversal.
-	 * @return {!number} The number of children in this subtree.
-	 */
-	function traverseAllChildren(children, callback, traverseContext) {
-	  if (children == null) {
-	    return 0;
-	  }
-	
-	  return traverseAllChildrenImpl(children, '', 0, callback, traverseContext);
-	}
-	
-	module.exports = traverseAllChildren;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
-
-/***/ },
 /* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14820,12 +14829,12 @@
 	
 	var EventConstants = __webpack_require__(44);
 	var EventPropagators = __webpack_require__(151);
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	var FallbackCompositionState = __webpack_require__(152);
 	var SyntheticCompositionEvent = __webpack_require__(153);
 	var SyntheticInputEvent = __webpack_require__(154);
 	
-	var keyOf = __webpack_require__(99);
+	var keyOf = __webpack_require__(100);
 	
 	var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 	var START_KEYCODE = 229;
@@ -15319,13 +15328,13 @@
 	var EventConstants = __webpack_require__(44);
 	var EventPluginHub = __webpack_require__(45);
 	var EventPropagators = __webpack_require__(151);
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	var ReactUpdates = __webpack_require__(30);
 	var SyntheticEvent = __webpack_require__(155);
 	
 	var isEventSupported = __webpack_require__(50);
 	var isTextInputElement = __webpack_require__(156);
-	var keyOf = __webpack_require__(99);
+	var keyOf = __webpack_require__(100);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -15731,7 +15740,7 @@
 	
 	'use strict';
 	
-	var keyOf = __webpack_require__(99);
+	var keyOf = __webpack_require__(100);
 	
 	/**
 	 * Module that is injectable into `EventPluginHub`, that specifies a
@@ -15780,7 +15789,7 @@
 	var SyntheticMouseEvent = __webpack_require__(157);
 	
 	var ReactMount = __webpack_require__(9);
-	var keyOf = __webpack_require__(99);
+	var keyOf = __webpack_require__(100);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	var getFirstReactDOM = ReactMount.getFirstReactDOM;
@@ -15921,7 +15930,7 @@
 	'use strict';
 	
 	var DOMProperty = __webpack_require__(18);
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var MUST_USE_ATTRIBUTE = DOMProperty.injection.MUST_USE_ATTRIBUTE;
 	var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
@@ -16136,7 +16145,7 @@
 	
 	var EventConstants = __webpack_require__(44);
 	
-	var emptyFunction = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -16234,7 +16243,7 @@
 	var Transaction = __webpack_require__(63);
 	
 	var assign = __webpack_require__(49);
-	var emptyFunction = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
 	
 	var RESET_BATCHED_UPDATES = {
 	  initialize: emptyFunction,
@@ -16465,8 +16474,8 @@
 /* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__resourceQuery) {var io = __webpack_require__(10);
-	var stripAnsi = __webpack_require__(11);
+	/* WEBPACK VAR INJECTION */(function(__resourceQuery) {var io = __webpack_require__(11);
+	var stripAnsi = __webpack_require__(10);
 	var scriptElements = document.getElementsByTagName("script");
 	io = io.connect(true ?
 		__resourceQuery.substr(1) :
@@ -16606,7 +16615,7 @@
 	'use strict';
 	
 	var AutoFocusMixin = __webpack_require__(158);
-	var DOMPropertyOperations = __webpack_require__(100);
+	var DOMPropertyOperations = __webpack_require__(102);
 	var LinkedValueUtils = __webpack_require__(161);
 	var ReactBrowserComponentMixin = __webpack_require__(113);
 	var ReactClass = __webpack_require__(75);
@@ -17023,7 +17032,7 @@
 	'use strict';
 	
 	var AutoFocusMixin = __webpack_require__(158);
-	var DOMPropertyOperations = __webpack_require__(100);
+	var DOMPropertyOperations = __webpack_require__(102);
 	var LinkedValueUtils = __webpack_require__(161);
 	var ReactBrowserComponentMixin = __webpack_require__(113);
 	var ReactClass = __webpack_require__(75);
@@ -17167,7 +17176,7 @@
 	'use strict';
 	
 	var EventListener = __webpack_require__(162);
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	var PooledClass = __webpack_require__(62);
 	var ReactInstanceHandles = __webpack_require__(24);
 	var ReactMount = __webpack_require__(9);
@@ -17359,7 +17368,7 @@
 	var ReactEmptyComponent = __webpack_require__(23);
 	var ReactBrowserEventEmitter = __webpack_require__(19);
 	var ReactNativeComponent = __webpack_require__(55);
-	var ReactDOMComponent = __webpack_require__(102);
+	var ReactDOMComponent = __webpack_require__(104);
 	var ReactPerf = __webpack_require__(27);
 	var ReactRootIndex = __webpack_require__(57);
 	var ReactUpdates = __webpack_require__(30);
@@ -17585,7 +17594,7 @@
 	
 	var getActiveElement = __webpack_require__(167);
 	var isTextInputElement = __webpack_require__(156);
-	var keyOf = __webpack_require__(99);
+	var keyOf = __webpack_require__(100);
 	var shallowEqual = __webpack_require__(168);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
@@ -17828,7 +17837,7 @@
 	var getEventCharCode = __webpack_require__(176);
 	
 	var invariant = __webpack_require__(35);
-	var keyOf = __webpack_require__(99);
+	var keyOf = __webpack_require__(100);
 	var warning = __webpack_require__(38);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
@@ -18683,7 +18692,7 @@
 	var Transaction = __webpack_require__(63);
 	
 	var assign = __webpack_require__(49);
-	var emptyFunction = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
 	
 	/**
 	 * Provides a `CallbackQueue` queue for collecting `onDOMReady` callbacks
@@ -18851,12 +18860,43 @@
 /* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Parses an URI
+	 *
+	 * @author Steven Levithan <stevenlevithan.com> (MIT license)
+	 * @api private
+	 */
+	
+	var re = /^(?:(?![^:@]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
+	
+	var parts = [
+	    'source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host'
+	  , 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'
+	];
+	
+	module.exports = function parseuri(str) {
+	  var m = re.exec(str || '')
+	    , uri = {}
+	    , i = 14;
+	
+	  while (i--) {
+	    uri[parts[i]] = m[i] || '';
+	  }
+	
+	  return uri;
+	};
+
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
 	
 	module.exports =  __webpack_require__(181);
 
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -19026,7 +19066,7 @@
 
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19053,21 +19093,6 @@
 	  }
 	};
 
-
-/***/ },
-/* 139 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	var indexOf = [].indexOf;
-	
-	module.exports = function(arr, obj){
-	  if (indexOf) return arr.indexOf(obj);
-	  for (var i = 0; i < arr.length; ++i) {
-	    if (arr[i] === obj) return i;
-	  }
-	  return -1;
-	};
 
 /***/ },
 /* 140 */
@@ -19163,6 +19188,21 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	
+	var indexOf = [].indexOf;
+	
+	module.exports = function(arr, obj){
+	  if (indexOf) return arr.indexOf(obj);
+	  for (var i = 0; i < arr.length; ++i) {
+	    if (arr[i] === obj) return i;
+	  }
+	  return -1;
+	};
+
+/***/ },
+/* 142 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
 	/**
 	 * Expose `Backoff`.
 	 */
@@ -19247,37 +19287,6 @@
 	  this.jitter = jitter;
 	};
 	
-
-
-/***/ },
-/* 142 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Parses an URI
-	 *
-	 * @author Steven Levithan <stevenlevithan.com> (MIT license)
-	 * @api private
-	 */
-	
-	var re = /^(?:(?![^:@]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
-	
-	var parts = [
-	    'source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host'
-	  , 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'
-	];
-	
-	module.exports = function parseuri(str) {
-	  var m = re.exec(str || '')
-	    , uri = {}
-	    , i = 14;
-	
-	  while (i--) {
-	    uri[parts[i]] = m[i] || '';
-	  }
-	
-	  return uri;
-	};
 
 
 /***/ },
@@ -19578,38 +19587,6 @@
 /* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule quoteAttributeValueForBrowser
-	 */
-	
-	'use strict';
-	
-	var escapeTextContentForBrowser = __webpack_require__(103);
-	
-	/**
-	 * Escapes attribute value to prevent scripting attacks.
-	 *
-	 * @param {*} value Value to escape.
-	 * @return {string} An escaped string.
-	 */
-	function quoteAttributeValueForBrowser(value) {
-	  return '"' + escapeTextContentForBrowser(value) + '"';
-	}
-	
-	module.exports = quoteAttributeValueForBrowser;
-
-
-/***/ },
-/* 149 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2013-2015, Facebook, Inc.
 	 * All rights reserved.
@@ -19625,7 +19602,7 @@
 	'use strict';
 	
 	var CSSProperty = __webpack_require__(184);
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var camelizeStyleName = __webpack_require__(185);
 	var dangerousStyleValue = __webpack_require__(186);
@@ -19792,7 +19769,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ },
-/* 150 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20226,6 +20203,38 @@
 
 
 /***/ },
+/* 150 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule quoteAttributeValueForBrowser
+	 */
+	
+	'use strict';
+	
+	var escapeTextContentForBrowser = __webpack_require__(105);
+	
+	/**
+	 * Escapes attribute value to prevent scripting attacks.
+	 *
+	 * @param {*} value Value to escape.
+	 * @return {string} An escaped string.
+	 */
+	function quoteAttributeValueForBrowser(value) {
+	  return '"' + escapeTextContentForBrowser(value) + '"';
+	}
+	
+	module.exports = quoteAttributeValueForBrowser;
+
+
+/***/ },
 /* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20585,7 +20594,7 @@
 	var PooledClass = __webpack_require__(62);
 	
 	var assign = __webpack_require__(49);
-	var emptyFunction = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
 	var getEventTarget = __webpack_require__(163);
 	
 	/**
@@ -21280,7 +21289,7 @@
 	 * @typechecks
 	 */
 	
-	var emptyFunction = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
 	
 	/**
 	 * Upstream version of event listener. Does not take into account specific
@@ -22436,7 +22445,7 @@
 	
 	  // Detect the `define` function exposed by asynchronous module loaders. The
 	  // strict `define` check is necessary for compatibility with `r.js`.
-	  var isLoader = "function" === "function" && __webpack_require__(201);
+	  var isLoader = "function" === "function" && __webpack_require__(200);
 	
 	  // Detect native implementations.
 	  var nativeJSON = typeof JSON == "object" && JSON;
@@ -23297,7 +23306,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	module.exports = __webpack_require__(200);
+	module.exports = __webpack_require__(201);
 	
 	/**
 	 * Exports parser
@@ -23910,7 +23919,7 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var contentKey = null;
 	
@@ -24038,10 +24047,10 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var createNodesFromMarkup = __webpack_require__(205);
-	var emptyFunction = __webpack_require__(67);
+	var emptyFunction = __webpack_require__(66);
 	var getMarkupWrap = __webpack_require__(206);
 	var invariant = __webpack_require__(35);
 	
@@ -24225,8 +24234,8 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(66);
-	var escapeTextContentForBrowser = __webpack_require__(103);
+	var ExecutionEnvironment = __webpack_require__(67);
+	var escapeTextContentForBrowser = __webpack_require__(105);
 	var setInnerHTML = __webpack_require__(36);
 	
 	/**
@@ -24271,7 +24280,7 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var getNodeForCharacterOffset = __webpack_require__(207);
 	var getTextContentAccessor = __webpack_require__(191);
@@ -24598,7 +24607,7 @@
 	
 	"use strict";
 	
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var performance;
 	
@@ -24625,14 +24634,22 @@
 /* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 	
 	var transports = __webpack_require__(210);
-	var Emitter = __webpack_require__(137);
+	var Emitter = __webpack_require__(138);
 	var debug = __webpack_require__(215)('engine.io-client:socket');
-	var index = __webpack_require__(139);
+	var index = __webpack_require__(141);
 	var parser = __webpack_require__(209);
 	var parseuri = __webpack_require__(212);
 	var parsejson = __webpack_require__(213);
@@ -25334,14 +25351,6 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 201 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
-
-/***/ },
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -25431,7 +25440,7 @@
 	
 	'use strict';
 	
-	var traverseAllChildren = __webpack_require__(105);
+	var traverseAllChildren = __webpack_require__(98);
 	var warning = __webpack_require__(38);
 	
 	/**
@@ -25493,7 +25502,7 @@
 	
 	/*jslint evil: true, sub: true */
 	
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var createArrayFromMixed = __webpack_require__(211);
 	var getMarkupWrap = __webpack_require__(206);
@@ -25583,7 +25592,7 @@
 	 * @providesModule getMarkupWrap
 	 */
 	
-	var ExecutionEnvironment = __webpack_require__(66);
+	var ExecutionEnvironment = __webpack_require__(67);
 	
 	var invariant = __webpack_require__(35);
 	
@@ -25778,7 +25787,7 @@
 	 */
 	
 	var parser = __webpack_require__(209);
-	var Emitter = __webpack_require__(137);
+	var Emitter = __webpack_require__(138);
 	
 	/**
 	 * Module exports.
@@ -26994,7 +27003,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	// browser shim for xmlhttprequest module
-	var hasCORS = __webpack_require__(231);
+	var hasCORS = __webpack_require__(230);
 	
 	module.exports = function(opts) {
 	  var xdomain = opts.xdomain;
@@ -27041,8 +27050,8 @@
 	
 	var XMLHttpRequest = __webpack_require__(217);
 	var Polling = __webpack_require__(229);
-	var Emitter = __webpack_require__(137);
-	var inherit = __webpack_require__(230);
+	var Emitter = __webpack_require__(138);
+	var inherit = __webpack_require__(231);
 	var debug = __webpack_require__(215)('engine.io-client:polling-xhr');
 	
 	/**
@@ -27432,7 +27441,7 @@
 	 */
 	
 	var Polling = __webpack_require__(229);
-	var inherit = __webpack_require__(230);
+	var inherit = __webpack_require__(231);
 	
 	/**
 	 * Module exports.
@@ -27673,7 +27682,7 @@
 	var Transport = __webpack_require__(208);
 	var parser = __webpack_require__(209);
 	var parseqs = __webpack_require__(214);
-	var inherit = __webpack_require__(230);
+	var inherit = __webpack_require__(231);
 	var debug = __webpack_require__(215)('engine.io-client:websocket');
 	
 	/**
@@ -28694,7 +28703,7 @@
 	var Transport = __webpack_require__(208);
 	var parseqs = __webpack_require__(214);
 	var parser = __webpack_require__(209);
-	var inherit = __webpack_require__(230);
+	var inherit = __webpack_require__(231);
 	var debug = __webpack_require__(215)('engine.io-client:polling');
 	
 	/**
@@ -28939,18 +28948,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	module.exports = function(a, b){
-	  var fn = function(){};
-	  fn.prototype = b.prototype;
-	  a.prototype = new fn;
-	  a.prototype.constructor = a;
-	};
-
-/***/ },
-/* 231 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
 	/**
 	 * Module dependencies.
 	 */
@@ -28974,6 +28971,18 @@
 	  module.exports = false;
 	}
 
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	module.exports = function(a, b){
+	  var fn = function(){};
+	  fn.prototype = b.prototype;
+	  a.prototype = new fn;
+	  a.prototype.constructor = a;
+	};
 
 /***/ },
 /* 232 */
