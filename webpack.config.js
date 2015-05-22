@@ -2,6 +2,10 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require('webpack');
 var path = require('path');
 
+var classNamesPattern = process.env.NODE_ENV === 'development' ?
+    '[name]__[local]___[hash:base64:5]' :
+    '[hash:base64:5]';
+
 module.exports = {
 	entry: [
 		'webpack-dev-server/client?http://localhost:3000', // WebpackDevServer host and port
@@ -24,18 +28,18 @@ module.exports = {
 			},
 			{ // we can do: import './Component.css';
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!!autoprefixer-loader?browsers=last 50 version')
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&minimize!autoprefixer-loader?browsers=last 50 version')
 			},
 			{ // we can do: import './Component.less';
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!!autoprefixer-loader?browsers=last 50 version!less-loader?sourceMap!')
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=' + classNamesPattern + '&minimize&sourceMap=0!autoprefixer-loader?browsers=last 50 version!less-loader?sourceMap!')
 			}
 		]
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
-		new ExtractTextPlugin("[name].css")
+		new ExtractTextPlugin('[name].css')
 	],
 	devtool: 'sourcemap'
 };
