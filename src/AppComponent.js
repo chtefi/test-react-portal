@@ -5,33 +5,47 @@ import styles from './AppComponent.less';
 export default class App extends React.Component {
 
 	static propTypes = {
-		appName: React.PropTypes.any,
-		bal: React.PropTypes.boolean.isRequired
+		appName: React.PropTypes.string.isRequired,
+		maxCounter: React.PropTypes.number.isRequired
 	}
 
 	constructor() {
+		super();
 		this.state = {
-			foo: 1
+			value: 0
 		};
+		this.onMouseMove = ::this.onMouseMove;
 	}
 
 	componentDidMount() {
-		this.setState({ foo: 2 });
+		this.bindEvents();
 	}
 
-
-	componentDidUpdate() {
-		this.setState({ foo: 2 });
+	componentWillUnmount() {
+		this.unbindEvents();
 	}
 
+	bindEvents() {
+		document.addEventListener('mousemove', this.onMouseMove);
+	}
+	unbindEvents() {
+		document.removeEventListener('mousemove', this.onMouseMove);
+	}
+
+	onMouseMove() {
+		this.setState({ value: this.state.value + 1 });
+		if (this.state.value + 1 > this.props.maxCounter) {
+			this.unbindEvents();
+		}
+	}
 
 	render() {
 		return (
 			<div className={styles.container}>
-				<h1>{ this.props.appName } { this.state.foo }</h1>
+				<h1>{ this.props.appName } [counter:{ this.state.value }]</h1>
 				<h2>Before portal</h2>
 				<Overlay>
-					<span style={styles.portal}>I'm in the portal !</span>
+					<span className={styles.portal}>I'm in the portal !</span>
 				</Overlay>
 				<h2>After portal</h2>
 			</div>
