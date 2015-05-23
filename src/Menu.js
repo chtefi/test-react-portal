@@ -1,31 +1,24 @@
 import React from 'react';
-import { Overlay } from 'react-overlay';
 import styles from './AppComponent.less';
+import MousePosition from './MousePosition';
 
 /**
  * Stateless component.
- * Just render some UI.
+ * Render the main UI.
  */
 export default class App extends React.Component {
 
 	static propTypes = {
-		appName: React.PropTypes.string.isRequired,
-		value: React.PropTypes.number.isRequired
-	}
-
-	constructor() {
-		super();
+		appName: React.PropTypes.string.isRequired
 	}
 
 	render() {
 		return (
 			<div className={styles.container}>
-				<h1>{ this.props.appName } [counter:{ this.props.value }]</h1>
-				<h2>Before portal</h2>
-				<Overlay>
-					<span className={styles.portal}>I'm in the portal !</span>
-				</Overlay>
-				<h2>After portal</h2>
+				<h1>{ this.props.appName }</h1>
+				<div><MousePosition /></div>
+				<div><MousePosition /></div>
+				<div><MousePosition /></div>
 			</div>
 		);
 	}
