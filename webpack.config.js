@@ -3,8 +3,8 @@ var webpack = require('webpack');
 var path = require('path');
 
 var classNamesPattern = process.env.NODE_ENV === 'development' ?
-    '[name]__[local]___[hash:base64:5]' :
-    '[hash:base64:5]';
+    '[hash:base64:20]' :
+    '[hash:base64:4]';
 
 module.exports = {
 	entry: [
@@ -28,11 +28,12 @@ module.exports = {
 			},
 			{ // we can do: import './Component.css';
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&minimize!autoprefixer-loader?browsers=last 50 version')
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=' + classNamesPattern)
 			},
 			{ // we can do: import './Component.less';
 				test: /\.less$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=' + classNamesPattern + '&minimize&sourceMap=0!autoprefixer-loader?browsers=last 50 version!less-loader?sourceMap!')
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=' + classNamesPattern + '&!less-loader')
+				// !autoprefixer-loader?browsers=last 50 version!
 			}
 		]
 	},

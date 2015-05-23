@@ -1,6 +1,6 @@
 import React from 'react';
-import App from './AppComponent';
+import AppComponent from './AppComponent';
 
-const app = <App appName="My Application Name" maxCounter={1337} />;
+const app = <AppComponent appName="My Application Name" maxCounter={1337} />;
 
 React.render(app, document.getElementById('app'));

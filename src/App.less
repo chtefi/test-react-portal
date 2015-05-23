@@ -1,0 +1,15 @@
+@import url('./App.css');
+
+:local(.container) {
+	background-color: blue;
+	color: white;
+	padding: 10px;
+	box-sizing: border-box;
+
+	h1:hover {
+		background-color: orange;
+	}
+}
+:local(.greenish):extends(.container) {
+	background-color: green;
+}
