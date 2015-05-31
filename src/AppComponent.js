@@ -17,6 +17,7 @@ export default class App extends React.Component {
 		this.state = {
 			value: 0
 		};
+
 		this.onMouseMove = ::this.onMouseMove;
 	}
 
